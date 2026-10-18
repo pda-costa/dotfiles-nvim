@@ -1,0 +1,90 @@
+return
+{
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },           
+    opts = {
+      renderers = {
+      },
+      list = {
+        enabled = true,
+        render_modes = false,
+        icons = { '●', '○', '◆', '◇' },
+        ordered_icons = function(ctx)
+            local value = vim.trim(ctx.value)
+            local index = tonumber(value:sub(1, #value - 1))
+            return ('%d.'):format(index > 1 and index or ctx.index)
+        end,
+        left_pad = 0,
+        right_pad = 0,
+        highlight = 'RenderMarkdownBullet',
+        scope_highlight = {},
+        scope_priority = nil,
+      },
+      unchecked = {
+        icon = '󰄱 ',
+        highlight = 'RenderMarkdownUnchecked',
+        scope_highlight = nil,
+      },
+      checked = {
+        icon = '󰱒 ',
+        highlight = "RenderMarkdownChecked",
+        scope_highlight = nil,
+      },
+      heading = {
+        enabled = true,
+        render_modes = false,
+        number = false,
+        atx = true,
+        setext = true,
+        sign = true,
+        icons = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },
+        position = 'overlay',
+        signs = { '󰫎 ' },
+        width = 'block',
+        left_margin = 0,
+        left_pad = 0,
+        right_pad = 0,
+        min_width = 90,
+        border = true,
+        border_virtual = true,
+        border_prefix = false,
+        above = '▄',
+        below = '▀',
+        backgrounds = {
+            'RenderMarkdownH1Bg',
+            'RenderMarkdownH2Bg',
+            'RenderMarkdownH3Bg',
+            'RenderMarkdownH4Bg',
+            'RenderMarkdownH5Bg',
+            'RenderMarkdownH6Bg',
+        },
+        foregrounds = {
+            'RenderMarkdownH1',
+            'RenderMarkdownH2',
+            'RenderMarkdownH3',
+            'RenderMarkdownH4',
+            'RenderMarkdownH5',
+            'RenderMarkdownH6',
+        },
+        custom = {},
+      },
+    },
+   config = function(_, opts)
+          require("render-markdown").setup(opts)
+      
+          -- FORCE LES STYLES (pour contourner ton thème)
+          vim.api.nvim_set_hl(0, "Bold", { bold = true })
+          vim.api.nvim_set_hl(0, "Italic", { italic = true })
+          vim.api.nvim_set_hl(0, "Underline", { underline = true })
+
+          -- 🔥 Styles natifs Markdown
+          vim.api.nvim_set_hl(0, "RenderMarkdownBold", { bold = true })
+          vim.api.nvim_set_hl(0, "RenderMarkdownItalic", { italic = true })
+          vim.api.nvim_set_hl(0, "RenderMarkdownUnderline", { underline = true })
+          vim.api.nvim_set_hl(0, "RenderMarkdownStrikethrough", { strikethrough = true })
+
+      end
+}
