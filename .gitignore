@@ -1,0 +1,12 @@
+# dotfiles-nvim/.gitignore
+
+# Neovim AppImage (trop lourd pour Git)
+bin/nvim.appimage
+bin/nvim
+
+# Plugins lazy (régénérés automatiquement)
+nvim/lazy-lock.json
+
+# Cache et données locales
+nvim/plugin/
+*.log
